@@ -54,8 +54,8 @@ The data was successfully loaded into the `LoanDataAnalysis` database and querie
 
 The raw aggregation and arrears data provided immediate, actionable insights:
 * **Highest Risk Customers (Defaulters):** Five customers (C002, C004, C008, C017, and C020) hit the highest delinquency level of **6 days or more in arrears**, with Customer **C002** hitting the peak at **8 days**. This segment represents the highest risk for future write-offs.
-* **Highest Interest Paid:** Customer **C006** paid the highest cumulative interest at **1,416**, followed closely by C013 at 1,403. This suggests these loans may have been active the longest or had the largest original balance, maximizing the interest collected.
-* **Lowest Repayment Activity:** Customer **C017** recorded the lowest cumulative repayment at **10,332**. Interestingly, C017 is also one of the highest risk customers (6 days in arrears).
+* **Highest Interest Paid:** Customer **C006** paid the highest cumulative interest at **₦1,416**, followed closely by C013 at **₦1,403**. This suggests these loans may have been active the longest or had the largest original balance, maximizing the interest collected.
+* **Lowest Repayment Activity:** Customer **C017** recorded the lowest cumulative repayment at **₦10,332**. Interestingly, C017 is also one of the highest risk customers (6 days in arrears).
 
 ---
 
@@ -70,7 +70,7 @@ To demonstrate core skills in credit risk modeling, a Logistic Regression model 
 | **Prediction** | Logistic Regression | Model coefficients were analyzed to determine feature importance and directionality. | `ML_Coefficient_Feature_Importance.png` and `ML_Model_Coefficients.csv` |
 
 **Key Finding:**
-The **`cumulative\_repayment`** feature was found to be the dominant factor in risk prediction (Coefficient: **$-0.000138$**). The **negative coefficient** confirms that higher total payments are strongly associated with a lower probability of being classified as high-risk, validating the model's intuitive financial logic.
+The **`cumulative\_repayment`** feature was found to be the dominant factor in risk prediction (Coefficient: **$-0.000138$**). The **negative coefficient** confirms that for every **₦1 increase in cumulative repayment**, the probability of being classified as high-risk decreases. This validates the model's intuitive financial logic.
 
 ### 2.2 Advanced Financial Metric: Average Recovery Rate
 
@@ -80,9 +80,9 @@ To demonstrate advanced financial modeling and complex SQL capabilities, we calc
 | :--- | :--- | :--- |
 | **Average Recovery Rate** | The average percentage of the original loan amount recovered from customers who hit a high delinquency level. | **CTE (Common Table Expressions)** and Advanced JOINs |
 
-**Result from `04_Analysis_Outputs/Advanced Metric, Average Recovery Rate for Defaulters.csv`:** **N1.09326839$** (or **N109.33\%$** of original loan amount).
+**Result from `04_Analysis_Outputs/Advanced Metric, Average Recovery Rate for Defaulters.csv`:** **$1.09326839$** (or **$109.33\%$** of original loan amount).
 
-**Interpretation:** A recovery rate over $100\%$ indicates that the metric captures the successful repayment of both the **principal** and the **accrued interest** for this cohort, suggesting strong financial performance despite minor delinquency events.
+**Interpretation:** A recovery rate over $100\%$ indicates that the metric captures the successful repayment of both the **principal** and the **accrued interest** for this cohort, suggesting strong financial performance despite minor delinquency events based on the original **₦** loan amount.
 
 ### 2.3 Data Visualization
 
