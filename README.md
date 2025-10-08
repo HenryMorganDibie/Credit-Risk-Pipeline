@@ -99,16 +99,19 @@ To showcase advanced skills in data storytelling, the following charts were gene
 ### Q1: Measuring the fastest repaying customers using utilization (%)
 
 **Metric:** Rate of Change in Utilization (Steepest Negative Slope).
+
 **Rationale:** The fastest customers are those who experience the largest drop in the `utilization (%)` metric over a defined period (e.g., weekly or monthly). This indicates the most aggressive principal reduction relative to the available credit.
 
 ### Q2: Interpreting a high Cumulative Interest / Cumulative Repayment ratio
 
 **Interpretation:** This suggests an **adverse repayment structure** for the customer, where a higher proportion of their total payments is servicing the **interest** rather than reducing the **principal**.
+
 **Implication:** The customer is likely making payments late, missing payments, or only paying the minimum required amount, allowing the interest to accrue heavily against a higher principal balance.
 
 ### Q3: Suggesting a visualization for repayment performance
 
 **Visualization:** **Cohort Analysis** using a **Line Chart**.
+
 **Implementation:** Group customers by a starting characteristic (e.g., initial loan size). Plot the **Average Outstanding Balance** (Y-axis) over **Days Since Loan Origination** (X-axis). The chart instantly shows which groups (lines) are driving the balance down most effectively.
 
 ### Q4: Identifying outliers in repayment behavior with thousands of customers
@@ -120,4 +123,5 @@ To showcase advanced skills in data storytelling, the following charts were gene
 ### Q5: Metric for evaluating portfolio risk over time
 
 **Metric:** **Rolling Average Days in Arrears** (across all active customers).
+
 **Rationale:** This provides a **leading indicator** of portfolio quality. A rising trend in the average days customers are late signals portfolio health deterioration, allowing the risk team to intervene proactively before arrears convert to significant losses.
