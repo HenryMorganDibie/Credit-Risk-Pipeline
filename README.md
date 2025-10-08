@@ -80,7 +80,7 @@ To demonstrate advanced financial modeling and complex SQL capabilities, we calc
 | :--- | :--- | :--- |
 | **Average Recovery Rate** | The average percentage of the original loan amount recovered from customers who hit a high delinquency level. | **CTE (Common Table Expressions)** and Advanced JOINs |
 
-**Result from `04_Analysis_Outputs/Advanced Metric, Average Recovery Rate for Defaulters.csv`:** **$1.09326839$** (or **$109.33\%$** of original loan amount).
+**Result from `04_Analysis_Outputs/Advanced Metric, Average Recovery Rate for Defaulters.csv`:** **N1.09326839$** (or **N109.33\%$** of original loan amount).
 
 **Interpretation:** A recovery rate over $100\%$ indicates that the metric captures the successful repayment of both the **principal** and the **accrued interest** for this cohort, suggesting strong financial performance despite minor delinquency events.
 
