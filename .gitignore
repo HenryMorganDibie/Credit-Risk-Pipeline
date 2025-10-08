@@ -1,0 +1,5 @@
+# .gitignore content
+# Ignore environment variables and temporary files
+.env
+__pycache__/
+*.pyc
