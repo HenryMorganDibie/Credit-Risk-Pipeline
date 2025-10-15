@@ -1,101 +1,143 @@
-# Kuda Loan Analysis Project (Data Engineering & Portfolio Risk)
+# Kuda Loan Analysis Project (Data Engineering & Portfolio Risk Strategy)
 
 ## Project Overview
 
-This project simulates a data engineering and financial analysis pipeline designed to load, organize, and analyze a loan snapshot dataset. The goal is to calculate key portfolio risk metrics and provide analytical interpretations of customer repayment behavior. This project showcases proficiency in **Python data handling, secure credential management, advanced SQL querying, Credit Risk Modeling, and end-to-end workflow automation.**
+This project simulates a data engineering and financial analysis pipeline designed to load, organize, and analyze a loan snapshot dataset. The goal is to calculate key portfolio risk metrics and provide analytical interpretations of customer repayment behavior. This project showcases advanced proficiency in **Python data handling, secure credential management, advanced SQL querying, Credit Risk Modeling, and end-to-end workflow automation**.
 
-**Key Technologies Used:**
-- **Python/Pandas:** Data manipulation, Machine Learning (Logistic Regression).
-- **SQLAlchemy/MySQL Connector:** Database connection and data ingestion.
-- **MySQL/SQL:** Complex data querying (using CTEs, Window Functions, Aggregation).
-- **Automation (PowerShell):** Sequential pipeline execution for MLOps simulation.
-- **Matplotlib/Seaborn:** Data visualization.
+The pipeline covers the entire customer lifecycle, translating model outputs into actionable financial KPIs for leadership. It demonstrates core skills in:
 
-## Project Structure
-
-The project is organized into a clean, reproducible folder structure:
-
-- **`01_Data_Input/`**: Contains the source Excel data (`Loan_Snapshot_Interview_Dataset.xlsx`).
-- **`02_Scripts_Python/`**: Contains core logic:
-    - `data_loader_excel_to_mysql.py` (Data ingestion)
-    - **`train_credit_risk_model.py` (Credit risk model training and explainability)**
-- **`03_Scripts_MySQL/`**: Contains all SQL query source code (`loan_snapshot_queries.sql`).
-- **`04_Analysis_Outputs/`**: Contains the final analytical results (as CSV files and PNG visualizations).
-- **`05_Visualizations_Python/`**: Contains the visualization script (`visualize_analysis.py`).
-- **`run_pipeline.ps1`**: **Master PowerShell script for end-to-end pipeline automation.**
-- **`.env`**: (Ignored by Git) Stores database connection credentials securely.
+- **Workflow Automation/MLOps:** Orchestrating 7 complex, multi-step jobs via a single PowerShell script.
+- **Credit Risk Strategy:** P&L maximization and data-driven credit limit assignment.
+- **Data Engineering:** Secure ETL, feature generation using advanced SQL, and system integration.
+- **Executive Reporting:** Translating model outputs into actionable financial KPIs for leadership.
 
 ---
 
-## Pipeline Automation & Execution
+## Key Technologies Used
 
-The entire analytical and modeling workflow is orchestrated via a single **PowerShell script (`run_pipeline.ps1`)** to demonstrate a reproducible, production-ready workflow. This aligns with experience in automation and ensures that data ingestion, ETL, risk modeling, and visualization all run sequentially on demand.
+| Technology | Purpose |
+|------------|---------|
+| Python/Pandas/Scikit-learn | Data manipulation, Logistic Regression, K-Means Clustering |
+| SQLAlchemy/MySQL | Database connection, ingestion, and complex feature extraction |
+| PowerShell (`run_pipeline.ps1`) | Master script for sequential pipeline automation |
+| Matplotlib/Seaborn | Data visualization and executive dashboarding |
 
-**Execution Flow (Triggered by `.\run_pipeline.ps1`):**
-1.  **`data_loader_excel_to_mysql.py`**: Reads source data, performs cleaning, and loads data into the `loansnapshot` table in MySQL.
-2.  **`loan_snapshot_queries.sql`**: Executes all core and advanced SQL queries, outputting aggregated CSVs.
-3.  **`train_credit_risk_model.py`**: Consumes CSVs, trains the Logistic Regression model, and outputs feature coefficients/plots.
-4.  **`visualize_analysis.py`**: Generates final PNG charts from SQL and ML outputs.
+---
+
+## Project Structure & Automation
+
+The project is structured to maximize reproducibility and clarity, mirroring a production environment. The entire workflow is executed via a single PowerShell script (`run_pipeline.ps1`).
+
+| Folder | Key Files & Purpose |
+|--------|-------------------|
+| 01_Data_Input/ | Contains the source Excel data (`Loan_Snapshot_Interview_Dataset.xlsx`) |
+| 02_Scripts_Python/ | Core logic: Model_Training_V1_Base.py (Base model), Model_Training_V2_Scoring.py (Scoring model), `data_loader_excel_to_mysql.py`, `Model_Training_V2_Scoring.py`, `Cutoff_Optimization.py`, `Credit_Limit_Clustering.py`, `ETL_Portfolio_Setup.py` |
+| 03_Scripts_MySQL/ | Feature engineering (`loan_snapshot_queries.sql`) and monitoring logic (`loan_monitoring_queries.sql`) |
+| 04_Analysis_Outputs/ | 17 final analytical results (KPIs, plots, and outputs like `Credit_Limit_Recommendations.csv` and `04_KMeans_Elbow_Plot.png`) |
+| 05_Visualizations_Python/ | Reporting: `Viz_Historical_Analysis.py` (Foundational Plots) and `Viz_Dashboard_KPIs.py` (Executive Dashboard) |
+
+---
+
+## Pipeline Automation & Execution Flow
+
+| Phase | Description | Key Script / Output(s) |
+|-------|------------|------------------------|
+| 0.1 ETL & SQL Analysis | Reads raw data, cleans it, and loads into MySQL; executes 7 core SQL feature-generation queries | `data_loader_excel_to_mysql.py` (Data loaded to `loansnapshot` table) |
+| 0.2 Foundational Visuals | Generates initial historical charts for risk distribution and repayment trends | `Viz_Historical_Analysis.py` / `01_Max_Arrears_Histogram.png`, `02_Portfolio_Repayment_Trend.png` |
+| 1.1 Credit Scoring | Trains Logistic Regression model and generates scores for the entire portfolio | `Model_Training_V2_Scoring.py` / `Model_Scoring_Output.csv` |
+| 1.2 P&L Optimization | Calculates profit at every score cut-off to determine optimal approval strategy | `Cutoff_Optimization.py` / `03_Profit_Optimization_Curve.png` |
+| 2.1 Limit Clustering | Runs K-Means clustering to segment customers and assign risk-adjusted credit limits | `Credit_Limit_Clustering.py` / `05_Customer_Segment_Profile_Plot.png` |
+| 3.1 Monitoring ETL | Merges all model results and loads final data to `CreditPortfolioMonitor` table | `ETL_Portfolio_Setup.py` / 30 records confirmed in monitoring table |
+| 3.2 Executive Reporting | Queries `CreditPortfolioMonitor` and generates executive dashboard visualization | `Viz_Dashboard_KPIs.py` / `06_Credit_Portfolio_Dashboard.png` |
 
 ---
 
 ## 1. Data Ingestion & Core SQL Analysis
 
-The data was successfully loaded into the `LoanDataAnalysis` database and queried to produce the following key findings (results are available in the `04_Analysis_Outputs/` folder):
+Key findings from initial SQL queries (available in `04_Analysis_Outputs/`):
 
-| Query | Key Finding from `04_Analysis_Outputs/` |
-| :--- | :--- |
-| **Max Days in Arrears** | Customer **C002** recorded the highest delinquency at **8 days in arrears**. |
-| **Fully Paid Off** | A total of **13** customers fully paid off their outstanding balance by the end of the period. |
-| **Risk Band** | All **30** customers are classified as 'Low' risk at the final observation date. |
-| **Avg. Utilization** | The portfolio-wide average utilization was **17.668%** at the end of the period. |
+| Query | Key Finding |
+|-------|------------|
+| Max Days in Arrears | Customer **C002** recorded the highest delinquency at **8 days in arrears** |
+| Fully Paid Off | **13** customers fully paid off their outstanding balance |
+| Risk Band | All **30** customers are classified as 'Low' risk at final observation |
+| Avg. Utilization | Portfolio-wide average utilization: **17.668%** |
 
-### Insights from Raw Data Files
+### Insights from Raw SQL Analysis
 
-The raw aggregation and arrears data provided immediate, actionable insights:
-* **Highest Risk Customers (Defaulters):** Five customers (C002, C004, C008, C017, and C020) hit the highest delinquency level of **6 days or more in arrears**, with Customer **C002** hitting the peak at **8 days**. This segment represents the highest risk for future write-offs.
-* **Highest Interest Paid:** Customer **C006** paid the highest cumulative interest at **₦1,416**, followed closely by C013 at **₦1,403**. This suggests these loans may have been active the longest or had the largest original balance, maximizing the interest collected.
-* **Lowest Repayment Activity:** Customer **C017** recorded the lowest cumulative repayment at **₦10,332**. Interestingly, C017 is also one of the highest risk customers (6 days in arrears).
+- **Highest Risk Customers (Defaulters):** C002, C004, C008, C017, and C020 hit a delinquency ≥6 days; C002 peaked at 8 days.  
+- **Highest Interest Paid:** C006 paid ₦1,416 and C013 paid ₦1,403, suggesting these loans had the largest balances or longest durations.  
+- **Lowest Repayment Activity:** C017 recorded the lowest cumulative repayment (₦10,332) and is one of the highest risk customers (6 days in arrears).
 
 ---
 
 ## 2. Advanced Deliverables (Extra Credit)
 
-### 2.1 Credit Risk Modeling & Explainability
+### 2.1 Credit Risk Modeling & Explainability (Including P&L Optimization)
 
-To demonstrate core skills in credit risk modeling, a Logistic Regression model was trained using key features (cumulative repayment and interest) to predict the binary target `Is_High_Risk` ($\text{max\_days\_in\_arrears} > 5$).
+A Logistic Regression model was trained using cumulative repayment and interest to predict the binary target `Is_High_Risk` (`max_days_in_arrears > 5`).
 
-| Metric | Model | Feature Explainability | Output Files |
-| :--- | :--- | :--- | :--- |
-| **Prediction** | Logistic Regression | Model coefficients were analyzed to determine feature importance and directionality. | `ML_Coefficient_Feature_Importance.png` and `ML_Model_Coefficients.csv` |
+| Metric | Result | Associated Risk |
+|--------|--------|----------------|
+| Optimal Score Cut-off | 601 | Highest profit achieved by approving customers with scores ≥601 |
+| Max Expected Profit | ₦58,729 | Max profit at the optimal cut-off |
+| Associated Default Rate | 6.67% | Targeted default rate to maximize P&L |
 
-**Key Finding:**
-The **`cumulative\_repayment`** feature was found to be the dominant factor in risk prediction (Coefficient: **$-0.000138$**). The **negative coefficient** confirms that for every **₦1 increase in cumulative repayment**, the probability of being classified as high-risk decreases. This validates the model's intuitive financial logic.
+#### Model Explainability
 
-### 2.2 Advanced Financial Metric: Average Recovery Rate
-
-To demonstrate advanced financial modeling and complex SQL capabilities, we calculated the **Average Recovery Rate** for customers who met the internal definition of default.
-
-| Advanced Metric | Definition | SQL Technique |
-| :--- | :--- | :--- |
-| **Average Recovery Rate** | The average percentage of the original loan amount recovered from customers who hit a high delinquency level. | **CTE (Common Table Expressions)** and Advanced JOINs |
-
-**Result from `04_Analysis_Outputs/Advanced Metric, Average Recovery Rate for Defaulters.csv`:** **$1.09326839$** (or **$109.33\%$** of original loan amount).
-
-**Interpretation:** A recovery rate over $100\%$ indicates that the metric captures the successful repayment of both the **principal** and the **accrued interest** for this cohort, suggesting strong financial performance despite minor delinquency events based on the original **₦** loan amount.
-
-### 2.3 Data Visualization
-
-To showcase advanced skills in data storytelling, the following charts were generated using Python (Matplotlib/Seaborn) and saved as PNG files in the `04_Analysis_Outputs/` folder:
-
-| Visualization | Insight Communicated |
-| :--- | :--- |
-| **Max Arrears Histogram** | Shows the **Risk Distribution** of the portfolio. This chart makes it immediately clear that most customers are clustered at low delinquency, with only a few outliers hitting the highest risk bands. |
-| **Portfolio Repayment Trend** | Shows the **Overall Portfolio Health** over the 60 days. The steady, consistent negative slope confirms that the portfolio as a whole is effectively paying down the principal balance. |
+| Feature | Coefficient | Directionality |
+|---------|------------|----------------|
+| cumulative_repayment | −0.000138 | **Strongest factor**. The negative coefficient confirms that higher repayment strongly decreases the probability of being classified as high-risk. |
+| cumulative_interest | −0.000014 | Minor negative impact |
 
 ---
 
-## 3. Statistics & Data Interpretation (Qualitative Answers)
+### 2.2 Advanced Financial Metric: Average Recovery Rate
+
+| Advanced Metric | Definition | SQL Technique |
+|-----------------|------------|---------------|
+| Average Recovery Rate | % of original loan recovered from customers meeting default criteria | CTEs and advanced JOINs |
+
+**Result:** 1.09326839 (109.33% of original loan amount)
+
+**Interpretation:** Recovery over 100% indicates successful repayment of principal + accrued interest, demonstrating strong financial performance despite minor delinquency.
+
+---
+
+### 2.3 Data Visualization
+
+| Visualization | Insight Communicated |
+|---------------|--------------------|
+| Max Arrears Histogram | Shows risk distribution of the portfolio; most customers cluster at low delinquency with few high-risk outliers |
+| Portfolio Repayment Trend | Shows overall portfolio health over 60 days; steady negative slope confirms principal repayment efficiency |
+
+---
+
+## 3. Portfolio Monitoring & Executive Reporting
+
+| risk_segment | total_customers_approved | portfolio_default_rate_pct | total_outstanding_exposure | avg_expected_pnl_per_customer |
+|--------------|-------------------------|---------------------------|---------------------------|-------------------------------|
+| Prime | 15 | 20.00% | ₦39,591.09 | ₦355.05 |
+| High-Risk | 8 | 0.00% | ₦0.00 | ₦360.89 |
+| Good | 4 | 25.00% | ₦0.00 | ₦359.29 |
+| Average | 3 | 33.33% | ₦0.00 | ₦359.52 |
+
+**Key Insight:** High-Risk segment shows 0.00% default rate but highest average expected P&L (₦360.89), warranting review of risk labeling.
+
+---
+
+## 4. Qualitative Analysis & Risk Metrics
+
+| Topic | Metric / Strategy |
+|-------|------------------|
+| Portfolio Risk Over Time | Rolling Average Days in Arrears → leading indicator of portfolio quality deterioration |
+| Outlier Identification | Z-score on Cumulative Interest / Repayment Ratio → identifies efficiency outliers |
+| Repayment Structure | High Interest / Repayment Ratio → payments primarily servicing interest, not principal |
+| Visualization | Cohort Analysis Line Chart → tracks average outstanding balance over time by loan characteristics |
+
+---
+
+## 5. Statistics & Data Interpretation (Qualitative Answers)
 
 ### Q1: Measuring the fastest repaying customers using utilization (%)
 
