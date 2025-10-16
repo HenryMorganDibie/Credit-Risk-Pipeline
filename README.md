@@ -1,4 +1,4 @@
-# Kuda Loan Analysis Project (Data Engineering & Portfolio Risk Strategy)
+# Digital Bank Loan Analysis Project (Data Engineering & Portfolio Risk Strategy)
 
 ## Project Overview
 
